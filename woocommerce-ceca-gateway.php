@@ -41,7 +41,7 @@ function woocommerce_gateway_ceca_init() {
             // Define user set variables            
             $this->title        = $this->get_option( 'title' );
             $this->description  = $this->get_option( 'description' );
-            $this->merchand_id  = $this->get_option( 'merchand_id' );
+            $this->merchant_id  = $this->get_option( 'merchant_id' );
             $this->acquirer_bin = $this->get_option( 'acquirer_bin' );
             $this->terminal_id  = $this->get_option( 'terminal_id' );
             $this->currency     = $this->get_option( 'currency' );
@@ -139,7 +139,7 @@ function woocommerce_gateway_ceca_init() {
                     'description' => __('This controls the description which the user sees during checkout.', 'mrova'),
                     'default' => __('Paga de forma segura con la pasarela de pago CECABANK.')
                 ),
-                'merchand_id' => array(
+                'merchant_id' => array(
                     'title' => __('Merchant ID'),
                     'type' => 'text',
                     'description' => __('Identifica al comercio. Facilitado por la caja en el proceso de alta.')
@@ -204,7 +204,7 @@ function woocommerce_gateway_ceca_init() {
             // Clave_encriptacion+MerchantID+AcquirerBIN+TerminalID+Num_operacion+Importe+
             // TipoMoneda+Exponente+“SHA1”+URL_OK+URL_NOK
             $signature_str = $this->password
-                .$this->merchand_id
+                .$this->merchant_id
                 .$this->acquirer_bin
                 .$this->terminal_id
                 .$order->id
@@ -220,7 +220,7 @@ function woocommerce_gateway_ceca_init() {
         function get_ceca_args( $order ) {
             $result = array();
 
-            $result['MerchantID']       = $this->merchand_id;
+            $result['MerchantID']       = $this->merchant_id;
             $result['AcquirerBIN']      = $this->acquirer_bin;
             $result['TerminalID']       = $this->terminal_id;
             $result['URL_OK']           = $this->get_return_url( $order );
